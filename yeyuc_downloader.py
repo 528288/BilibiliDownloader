@@ -29,9 +29,10 @@ class YouGet():
             if file[-3:] == 'xml':
                 self.rmfile(os.path.join(self.path, file))
 
+
 if __name__ == "__main__":
     path = r"视频存放路径"
-    url = ["待下载的视频列表"]
+    urls = ["待下载的视频列表"]
     yg = YouGet(path)
     for url in urls:
         yg.download(url)
