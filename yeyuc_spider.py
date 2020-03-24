@@ -56,12 +56,12 @@ class RequestsSpider:
         aids = [node.get("data-aid") for node in nodes]
         info.extend(aids)
 
-    def spider(self):
+    def spider(self, start_url):
         """
         初始url与调度
         """
         info = []
-        start_url = "https://space.bilibili.com/384068749/video?tid=0&page="  # 投稿页的url
+        # start_url = "https://space.bilibili.com/384068749/video?tid=0&page="  # 投稿页的url
 
         for i in range(self.depth):
             print("正在爬取第{0}页".format(i + 1))
