@@ -1,5 +1,5 @@
 from yeyuc_multicore import MultiCore
-from yeyuc_spider import RequestsSpider
+from yeyuc_spider import Coder, RequestsSpider
 
 if __name__ == "__main__":
     """
@@ -20,11 +20,29 @@ if __name__ == "__main__":
     urls = rs.spider(start_url)
     rs.browser.close()
     # urls = ["https://www.bilibili.com/video/av" + item for item in urls]
-    urls = ["https://www.bilibili.com/video/" + item for item in urls]
-    print(urls)
+    # urls = ["https://www.bilibili.com/video/" + item for item in urls]
+    coder = Coder()
+    urls = ["https://www.bilibili.com/video/av" + str(coder.dec(item)) for item in urls]
 
-    # path = r"你想要的下载位置"
     mc = MultiCore(path)
     slices = min(slices, len(urls))  # 防止分片数过大
     data = mc.split_list(urls, slices)  # 将urls分成8份
     mc.process(param=data)
+
+    # slices = 8
+    # urls = ["https://www.bilibili.com/video/av?p=" + str(_) for _ in range(1, 49)]
+    #
+    # mc = MultiCore(path)
+    # slices = min(slices, len(urls))  # 防止分片数过大
+    # data = mc.split_list(urls, slices)  # 将urls分成8份
+    # mc.process(param=data)
+    #
+    # client = Common()
+    #
+    # files = os.listdir(path)
+    # videos = [file.split('.')[0] + '.wav' for file in files]
+    # # videos = [file.split('.')[0] + '.mp3' for file in files]
+    # for v, a in zip(files, videos):
+    #     client.movie_py(os.path.join(path, v), os.path.join(path, a))
+
+    pass

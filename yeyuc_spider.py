@@ -5,6 +5,28 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 
 
+class Coder:
+    def __init__(self):
+        self.table = 'fZodR9XQDSUm21yCkr6zBqiveYah8bt4xsWpHnJE7jL5VG3guMTKNPAwcF'
+        self.tr = {self.table[i]: i for i in range(58)}
+        self.s = [11, 10, 3, 8, 4, 6]
+        self.xor = 177451812
+        self.add = 8728348608
+
+    def dec(self, x):
+        r = 0
+        for i in range(6):
+            r += self.tr[x[self.s[i]]] * 58 ** i
+        return (r - self.add) ^ self.xor
+
+    def enc(self, x):
+        x = (x ^ self.xor) + self.add
+        r = list('BV1  4 1 7  ')
+        for i in range(6):
+            r[self.s[i]] = self.table[x // 58 ** i % 58]
+        return ''.join(r)
+
+
 # 给定哔哩哔哩up主投稿页链接，爬取所有视频链接
 class RequestsSpider:
     def __init__(self, pages, **kwargs):
@@ -75,8 +97,21 @@ class RequestsSpider:
 
 
 if __name__ == "__main__":
-    client = RequestsSpider(pages=3, selenium=True)
-    urls = client.spider()
-    client.browser.close()
-    urls = ["https://www.bilibili.com/video/av" + item for item in urls]
-    print(urls)
+    # client = RequestsSpider(pages=3, selenium=True)
+    # urls = client.spider()
+    # client.browser.close()
+
+    # coder = Coder()
+    # print(coder.dec('BV1bb411N77n'))
+    # print(coder.dec('BV17x411w7KC'))
+    # print(coder.dec('BV1Q541167Qg'))
+    # print(coder.dec('BV1mK4y1C7Bz'))
+    # print(coder.enc(170001))
+    # print(coder.enc(455017605))
+    # print(coder.enc(882584971))
+
+    # urls = ["https://www.bilibili.com/video/av" + coder.dec(item) for item in urls]
+    # urls = ["https://www.bilibili.com/video/av" + item for item in urls]
+    # print(urls)
+
+    pass
