@@ -21,7 +21,7 @@ class YouGet():
             print(e)
 
     def download(self, url):
-        sys.argv = ['you-get', '-o', self.path, url]
+        sys.argv = ['you-get', '--playlist', '-o', self.path, url]
         you_get.main()
 
         # 下载完成，删除xml文件
